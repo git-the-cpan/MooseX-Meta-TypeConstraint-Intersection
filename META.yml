@@ -1,0 +1,16 @@
+---
+abstract: 'An intersection of Moose type constraints'
+author:
+  - 'Florian Ragwitz <rafl@debian.org>'
+generated_by: 'Dist::Zilla::Plugin::MetaYAML version 1.091480'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MooseX-Meta-TypeConstraint-Intersection
+requires:
+  Moose: 0
+  MooseX::Types::Moose: 0
+  aliased: 0
+  namespace::autoclean: 0
+version: 0.01
