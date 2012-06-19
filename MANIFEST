@@ -7,5 +7,6 @@ README
 dist.ini
 lib/MooseX/Meta/TypeConstraint/Intersection.pm
 t/basic.t
+t/custom-error.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t

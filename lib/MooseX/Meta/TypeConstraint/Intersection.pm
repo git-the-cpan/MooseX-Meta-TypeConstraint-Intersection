@@ -1,5 +1,7 @@
 package MooseX::Meta::TypeConstraint::Intersection;
-our $VERSION = '0.03';
+{
+  $MooseX::Meta::TypeConstraint::Intersection::VERSION = '0.04';
+}
 # ABSTRACT: An intersection of Moose type constraints
 
 use Moose;
@@ -81,6 +83,11 @@ sub validate {
     return join(q{ and } => map { $_->[0] } @{ $msgs }) . ' in ' . $self->name;
 }
 
+sub get_message {
+    my ($self, $value) = @_;
+    return $self->validate($value);
+}
+
 
 sub validate_all {
     my ($self, $value) = @_;
@@ -129,7 +136,7 @@ MooseX::Meta::TypeConstraint::Intersection - An intersection of Moose type const
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 DESCRIPTION
 
@@ -238,7 +245,7 @@ Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Florian Ragwitz.
+This software is copyright (c) 2012 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

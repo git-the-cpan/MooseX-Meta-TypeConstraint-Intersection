@@ -4,34 +4,50 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.11;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-                       'test' => {
-                                   'TESTS' => 't/*.t'
-                                 },
-                       'NAME' => 'MooseX::Meta::TypeConstraint::Intersection',
-                       'DISTNAME' => 'MooseX-Meta-TypeConstraint-Intersection',
-                       'AUTHOR' => 'Florian Ragwitz <rafl@debian.org>',
-                       'ABSTRACT' => 'An intersection of Moose type constraints',
-                       'EXE_FILES' => [],
-                       'VERSION' => '0.03',
-                       'LICENSE' => 'perl',
-                       'PREREQ_PM' => {
-                                        'MooseX::Types::Moose' => '0',
-                                        'Test::More' => '0.88',
-                                        'namespace::autoclean' => '0',
-                                        'ExtUtils::MakeMaker' => '6.11',
-                                        'aliased' => '0',
-                                        'Moose' => '0'
-                                      }
-                     );
+  "ABSTRACT" => "An intersection of Moose type constraints",
+  "AUTHOR" => "Florian Ragwitz <rafl\@debian.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "MooseX-Meta-TypeConstraint-Intersection",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "MooseX::Meta::TypeConstraint::Intersection",
+  "PREREQ_PM" => {
+    "Moose" => 0,
+    "MooseX::Types::Moose" => 0,
+    "Test::More" => "0.88",
+    "aliased" => 0,
+    "namespace::autoclean" => 0
+  },
+  "VERSION" => "0.04",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
+);
 
 
-delete $WriteMakefileArgs{LICENSE}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%WriteMakefileArgs);
 
